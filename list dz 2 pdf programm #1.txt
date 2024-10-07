@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
+using namespace std;
+
+int main() {
+    int a, b, i, sum_divisorsb = 0, sum_divisorsa = 0, num_divisorsa = 0, num_divisorsb = 0, necheta = 1, chetb = 0, od = 0;
+    do {
+        cout << "write a and b (a < b)" << endl;
+        cin >> a;
+        cin >> b;
+    } while (a < 10 || a > 1000 || b < 10 || b > 1000 || a > b);
+
+    // Вывод делителей числа a
+    cout << "\nDivisors of a: " << endl;
+    for (i = 1; i <= a; i++) {
+        if (a % i == 0) {
+            cout << i << " ";
+            sum_divisorsa += i; // сумма делителей a
+            num_divisorsa++;    // количество делителей a
+        }
+    }
+
+    // Вывод делителей числа b
+    cout << "\nDivisors of b: " << endl;
+    for (i = 1; i <= b; i++) {
+        if (b % i == 0) {
+            cout << i << " ";
+            sum_divisorsb += i; // сумма делителей b
+            num_divisorsb++;    // количество делителей b
+        }
+    }
+
+    // Нечетные делители числа a
+    for (i = 1; i <= a; i++) {
+        if (a % i == 0 && i % 2 != 0) {
+            necheta *= i; // произведение нечетных делителей a
+        }
+    }
+
+    // Четные делители числа b
+    for (i = 1; i <= b; i++) {
+        if (b % i == 0 && i % 2 == 0) {
+            chetb += i; // сумма четных делителей b
+        }
+    }
+
+    // Нахождение максимального общего делителя (ОД) с помощью простого перебора
+    for (i = 1; i <= a && i <= b; i++) {
+        if (a % i == 0 && b % i == 0) {
+            od = i; // максимальный общий делитель
+        }
+    }
+
+    // Вывод результатов
+    cout << "\nSum of divisors: " << sum_divisorsa + sum_divisorsb << endl;
+    cout << "Proizv number of divisors: " << num_divisorsa * num_divisorsb << endl;
+    cout << "Sum proizv nechet div a na sum chet div b: " << necheta + chetb << endl;
+    cout << "The biggest div of a and b: " << od << endl;
+
+    return 0;
+}
+
+  
