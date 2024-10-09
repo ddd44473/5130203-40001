@@ -1,0 +1,95 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+	int n, dec=0, dig, opt, maxc=0, minc=9999, sum=0, proizvnechet = 1;
+	char cont;
+	do {
+		// print the menu of options
+
+		std::cout << "\nSelect an option from [1-8] according to the menu:" <<endl;
+		std::cout << "[1]. Enter a number in the range between 1000 and 999999"<<endl;
+		std::cout << "[2]. Print the digits of the number" << endl;
+		std::cout << "[3]. Count how many digits the number has" << endl;
+		std::cout << "[4]. Return the lowest and highest digits of the number"<<endl;
+		std::cout << "[5]. Return the sum of the digits of the number" << endl;
+		std::cout << "[6]. Return the product of the odd digits" << endl;
+		std::cout << "[7]. Calculate the inverted version of the number" << endl;
+		std::cout << "---------------------------------------------------" << endl;
+		std::cout << "Enter option: ";
+		cin >> opt;
+
+		switch (opt) {
+		case 1: // OPTION 01: Enter the number
+			do {
+				std::cout << " write number " << endl;
+				cin >> n;
+			} while (n < 1000 || n > 999999999);
+			
+			break;
+
+		case 2: // OPTION 02: Print numbers of N
+			while (n > 0) {
+				dig = n % 10; 
+				std::cout << dig << " "; 
+				n /= 10;              
+			}
+			break;
+		case 3: // OPTION 03: Count how many digits the number has
+			while (n > 0) {
+				n /= 10;
+				dec++;
+			}
+			std::cout << dec << " ";
+			break;
+		case 4: // OPTION 04: Return the lowest and highest digits of the
+			while (n > 0) {
+				dig = n % 10;
+				if (dig > maxc) {
+					maxc = dig;
+				}
+				if (dig < minc) {
+					minc = dig;
+				}
+				n /= 10;
+			}
+			std::cout << maxc << " " << std::endl;
+			std::cout << minc << " " << std::endl;
+
+			break;
+		case 5: // OPTION 05: Return the sum of the digits of the number
+			while (n > 0) {
+				dig = n % 10;
+				sum = sum + dig;
+				n /= 10;
+			}
+			std::cout << sum << " " << std::endl;
+			break;
+		case 6: // OPTION 06: Return the product of the odd digits
+			while (n > 0) {
+				dig = n % 10;
+				if (dig % 2 != 0) {
+					proizvnechet = proizvnechet * dig;
+				}
+				n /= 10;
+			}
+			std::cout << proizvnechet << " " << std::endl;
+			break;
+		case 7: // OPTION 07: Calculate the inverted version of the
+			while (n > 0) {
+				std::cout << n % 10;
+				n /= 10;
+			}
+			std::cout << std::endl;
+			break;
+		}
+		// Request to user continue or not
+		std::cout << "\nDo you want continue [Y|N]? " << endl;
+
+		cin >> cont;
+	} while (cont == 'y' || cont == 'Y');
+	std::cout << "\n The program is over!" << endl;
+	return 0;
+}
+
+  
