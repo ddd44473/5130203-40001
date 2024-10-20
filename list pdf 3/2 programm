@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
+using namespace std;
+
+int main() {
+    int x, n;
+
+    cout << "\n Define n = ";
+    cin >> n;
+    cout << "\n Define x = ";
+    cin >> x;
+
+    int aux, dig, order, y;
+    aux = x;
+    order = 1;
+    y = 0;
+
+    while (aux > 0) {
+        dig = aux % n;
+        aux = aux / n;
+        y = y + dig * order;
+        order = order * 10;
+    }
+    cout << "\n Value in base: " << n << " = " << y << endl;
+
+    int x1, n1, aux1, y1;
+
+    cout << "input base ";
+    cout << "input number ";
+    cin >> n1;
+    cin >> x1;
+
+    aux1 = x1;
+    y1 = 0;
+
+    int dig1, order1 = 1; 
+
+    while (aux1 > 0) {
+        dig1 = aux1 % 10;
+        y1 = y1 + dig1 * order1;
+    }
+
+    return 0;
+}
