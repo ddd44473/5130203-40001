@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+#include <cstdlib>;
+
+void innumel(int* n) {
+    do {
+        cout << " number of elements: ";
+        cin >> *n;
+    } while (*n <= 0);
+}
+
+int *am(int n) {
+    return (int*)malloc(n * sizeof(int));
+}
+
+void input_vector(int n, int *x) {
+    for (int i = 0; i < n; i++) {
+        cout << "X[" << i << "]: ";
+        cin >> x[i];
+    }
+}
+
+void print_vector(int n, int* x) {
+    for (int i = 0; i < n; i++) {
+        cout << x[i] << "  ";
+    }
+    cout << endl;
+}
+
+double eucd(int n, int* x, int* y) {
+    double dist = 0;
+
+    for (int i = 0; i < n; i++) {
+        dist += pow(x[i] - y[i], 2);
+    }
+
+    return sqrt(dist);
+}
+
+double sclar(int n, int* x, int* y) {
+    double sc = 0;
+    for (int i = 0; i < n; i++) {
+        sc += x[i] * y[i];
+    }
+    return sc;
+}
+
+
+int main()
+{
+    int numofel, *a, *b;
+    double ed, scal;
+    innumel(&numofel);
+    a = am(numofel);
+    b = am(numofel);
+
+    cout << "\n Input the elements for vectors: \n" << endl;
+    cout << "\nA: \n" << endl;
+    input_vector(numofel, a);
+    cout << "\nB: \n" << endl;
+    input_vector(numofel, b);
+
+
+    cout << "\nVector A: \n" << endl;
+    print_vector(numofel, a);
+    cout << "\nVector B: \n" << endl;
+    print_vector(numofel, b);
+
+    ed = eucd(numofel, a, b);
+    cout << "\nEuclidean distance = \n" << ed << endl;
+
+    scal = sclar(numofel, a, b);
+    cout << "\nSclar proizv = \n" << scal << endl;
+
+}
