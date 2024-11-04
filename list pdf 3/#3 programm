@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+#include <cstdlib>;
+int main()
+{
+    int numofel, minch = 999, maxnch = 0, newvector = 0;
+    do {
+        cout << " number of elements: " << endl;
+        cin >> numofel;
+    } while (numofel <= 0 || numofel % 2 != 0); // кол-во элементов вектора
+
+
+    int* vec = (int*)malloc(numofel * sizeof(int)); //динамич память для эле-ов вектора
+    
+    cout << " print elements of vector \n";
+    for (int i = 0; i < numofel; ++i) {
+        cin >> vec[i];
+    } //вводим эле-ты вектора
+
+    for (int i = 1; i < numofel; i += 2) {
+         
+        if (vec[i] < minch){
+                minch = vec[i];
+        }
+        
+    } //минимальный элемент вектора с четным индексом
+
+    for (int i =0; i < numofel; i += 2) {
+
+        if (vec[i] > maxnch) {
+            maxnch = vec[i];
+        }
+
+    } //минимальный элемент вектора с четным индексом
+
+    if (minch > maxnch) {
+        cout << " vector is STARKX" << endl;
+    }
+    else {
+        cout << " vector is not STARKX" << endl;
+    }
+
+    for (int i = 0; i < numofel; ++i) {
+        int num = vec[i], max_digit = 0;
+        while (num > 0) {
+            int digit = num % 10;  
+            if (digit > max_digit) {
+                max_digit = digit;  
+            }
+            num /= 10;  
+        }
+
+        newvector = newvector * 10 + max_digit;
+    }
+    cout << newvector << endl;
+}
+
+
