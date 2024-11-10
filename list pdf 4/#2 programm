@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+#include <cstdlib>
+
+int main()
+{
+    int n;
+    cout << "write number of points: " << endl;
+    cin >> n;
+
+    int** points = new int* [n];
+    for (int i = 0; i < n; i++) {
+        points[i] = new int[2];
+        cout << "Enter x and y for point " << endl;
+        cin >> points[i][0] >> points[i][1];
+    }
+
+    cout << "\nYour x and y of points:\n";
+    for (int i = 0; i < n; i++) {
+        cout << "point " << i + 1 << ": (" << points[i][0] << ", " << points[i][1] << ")\n";
+    }
+    
+
+}
