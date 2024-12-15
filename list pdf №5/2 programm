@@ -1,0 +1,88 @@
+#include <iostream>
+#include <cmath>
+#include <cstring>
+using namespace std;
+#define MAX 30
+
+void numofwords(int* n) {
+    do {
+        cout << " number of words: ";
+        cin >> *n;
+    } while (*n <= 0);
+}
+
+char** din(int n) {
+    char** m = (char**)malloc(n * sizeof(char*));
+
+    for (int i = 0; i < n; i++) {
+        m[i] = (char*)malloc(MAX * sizeof(char));
+    }
+
+    return m;
+}
+
+void inputword(int n, char** x) {
+    for (int i = 0; i < n; i++) {
+        cout << "\nWord " << i << ": " << endl;
+        cin >> x[i];
+    }
+}
+
+void printwords(int n, char** x) {
+    for (int i = 0; i < n; i++) {
+        cout << x[i] << endl;
+    }
+}
+
+void order_words(int n, char** x) {
+    char aux[MAX];
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(x[i], x[j]) > 0) {
+                strcpy(aux, x[j]);
+                strcpy(x[j], x[i]);
+                strcpy(x[i], aux);
+            }
+        }
+    }
+}
+
+void free_memory(int n, char** x) {
+    for (int i = 0; i < n; i++) {
+        free(x[i]);
+    }
+    free(x);
+}
+
+int main()
+{
+    int numofw;
+    char **w;
+
+    numofwords(&numofw); //print number of words
+
+    w = din(numofw); //dinamic memory for word
+
+    //input words
+    cout << "\nInput the list of words: " << endl;
+    inputword(numofw, w); 
+
+    //Print words
+    cout << "\nList of original words: " << endl;
+    printwords(numofw, w);
+
+    // list the words ordered
+    cout << "\nList of ordered words: " << endl;
+    order_words(numofw, w);
+    printwords(numofw, w);
+    free_memory(numofw, w);
+
+    return 0;
+
+
+
+
+}
+
+
