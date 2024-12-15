@@ -1,0 +1,251 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+#include <cstdlib>
+#include <sstream>
+
+void msize(int* n) {
+    do {
+        cout << " size of matrix(n x n): ";
+        cin >> *n;
+    } while (*n <= 0);
+}
+
+int** din(int n) {
+    int** m = (int**)malloc(n * sizeof(int*));
+
+    for (int i = 1; i <= n; i++) {
+        m[i] = (int*)malloc(n * sizeof(int));
+    }
+    return m;
+}
+
+void input_matrix(int n, int** x) {
+    for (int i = 1; i <= n; i++) {
+        cout << "Row " << i << ": " << endl;
+
+        for (int j = 1; j <= n; j++) {
+            do {
+                cout << "x[" << j << "]: ";
+                cin >> x[i][j];
+            } while (x[i][j] < 10 || x[i][j]>100);
+        }
+        cout << endl;
+    }
+}
+
+void print_matrix(int n, int m, int** x) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            cout << x[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+int* dinvector(int n) {
+    return (int*)malloc(n * sizeof(int));
+}
+
+void sumrows(int n, int **x, int *sumrows) {
+    for (int i = 1; i <= n;i++) {
+        sumrows[i] = 0;
+
+        for (int j = 1; j <= n; j++) {
+            sumrows[i] += x[i][j];
+        }
+    }
+}
+
+void print_vector(int n, int* x) {
+    for (int i = 1; i <= n; i++) {
+        cout << x[i] << " ";
+    }
+    cout << endl;
+}
+
+void sumcols(int n, int** x, int* sum_cols) {
+    for (int i = 1; i <= n; i++) {
+        sum_cols[i] = 0;
+
+        for (int j = 1; j <= n; j++) {
+            sum_cols[i] += x[j][i];
+        }
+    }
+}
+
+void tmatrix(int n, int** x, int** trx) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            trx[j][i] = x[i][j];
+        }
+    }
+}
+
+void summatrix(int n, int** x, int** y, int** s) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            s[i][j] = x[i][j] + y[i][j];
+        }
+    }
+}
+
+void randomvec(int n, int* x) {
+    for (int i = 1; i <= n; i++) {
+        x[i] = rand() % (100 - 10) + 10;
+    }
+}
+
+void free_matrix(int n, int** x) {
+    for (int i = 1; i <= n; i++) {
+        free(x[i]);
+    }
+
+    free(x);
+}
+
+int** insertrow(int n, int** x, int* row, int pos) {
+    int** new_x = din(n + 1);
+
+    for (int i = n + 1; i >= 1; i--) {
+        for (int j = 1; j <= n; j++) {
+            if (i < pos) {
+                new_x[i][j] = x[i][j];
+            }
+            else if (i == pos) {
+                new_x[pos][j] = row[j];
+            }
+            else if (i > pos) {
+                new_x[i][j] = x[i - 1][j];
+            }
+        }
+    }
+
+    free_matrix(n, x);
+
+    return new_x;
+}
+
+
+
+int** insertcol(int n, int** x, int* col, int pos) {
+    int** new_x = din(n + 1);
+
+    for (int i = n + 1; i >= 1; i--) {
+        for (int j = 1; j <= n; j++) {
+            if (i < pos) {
+                new_x[j][i] = x[j][i];
+            }
+            else if (i == pos) {
+                new_x[j][pos] = col[j];
+            }
+            else if (i > pos) {
+                new_x[j][i] = x[j][i - 1];
+            }
+        }
+    }
+
+    free_matrix(n, x);
+
+    return new_x;
+}
+
+
+
+
+int main()
+{
+    int na, nb, **a, **b, *sumra, *sumrb, *sumcolsa, *sumcolsb, **at, **bt, **s, *newra, posa, *newcb, posb;
+
+    srand(static_cast<unsigned int>(time(0)));
+
+    //n * n of matrixes
+    msize(&na);
+    msize(&nb);
+
+    //dinamic memory of matrixes
+    a = din(na);
+    b = din(nb);
+
+    //input elemtnts
+    cout << "\nInput matrix A: " << endl;
+    input_matrix(na, a);
+    cout << "\nInput matrix B: " << endl;
+    input_matrix(nb, b);
+
+    //print matrix A and matrix B
+    cout << "\nMatrix A: " << endl;
+    print_matrix(na, na, a);
+    cout << "\nMatrix B: " << endl;
+    print_matrix(nb, nb, b);
+
+    //dinamic memory for vector
+    sumra = dinvector(na);
+    sumrb = dinvector(nb);
+    //sumrows of matrix A and B
+    sumrows(na, a, sumra);
+    sumrows(nb, b, sumrb);
+    //print sumrows of marrixes A and B
+    cout << "\nSum of rows of A: ";
+    print_vector(na,sumra);
+    cout << "\nSum of rows of B: ";
+    print_vector(nb,sumrb);
+
+    //dimanic memory for vector
+    sumcolsa = dinvector(na);
+    sumcolsb = dinvector(nb);
+    //sumcols of matrix A and B
+    sumcols(na, a, sumcolsa);
+    sumcols(nb, b, sumcolsb);
+    //print sumcols of marrixes A and B
+    cout << "\nSum of cols of A: ";
+    print_vector(na, sumcolsa);
+    cout << "\nSum of cols of B: ";
+    print_vector(nb, sumcolsb);
+
+    //dinamic memory of T-matrixes
+    at = din(na);
+    bt = din(nb);
+    //T-matrixes
+    tmatrix(na, a, at);
+    tmatrix(nb, b, bt);
+
+    //S matrix
+    s = din(na);
+    summatrix(na, at, bt, s);
+
+    //Print T-matrixes
+    cout << "A^T = " << endl;
+    print_matrix(na, na, at);
+    cout << "B^T = " << endl;
+    print_matrix(nb, nb, bt);
+    cout << "\nS = AT + BT: " << endl;
+    print_matrix(na, na, s);
+
+    //New row for a
+    newra = dinvector(na);
+    randomvec(na, newra); //generation random vectors
+    cout << "\nNew row for A: ";
+    print_vector(na, newra); //print new row for matrix A
+    cout << "\nInsert the position: ";
+    cin >> posa;
+    a = insertrow(na, a, newra, posa);
+    cout << "\nA after inserting new row: " << endl;
+    print_matrix(na + 1, na, a);
+
+    //New col for b
+    newcb = dinvector(nb);
+    randomvec(nb, newcb);
+    cout << "\nNew col for B: ";
+    print_vector(nb, newcb);
+    cout << "\nInsert the position: ";
+    cin >> posb;
+    b = insertcol(nb, b, newcb, posb);
+    cout << "\nB after inserting new col: " << endl;
+    print_matrix(nb, nb + 1, b);
+
+
+
+}
+
